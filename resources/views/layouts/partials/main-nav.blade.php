@@ -64,10 +64,10 @@
                     </a>
                     <div class="collapse" id="sidebarAgents">
                          <ul class="nav sub-navbar-nav">
-                              <li class="sub-nav-item"><a class="sub-nav-link" href="#!">List View</a></li>
-                              <li class="sub-nav-item"><a class="sub-nav-link" href="#!">Grid View</a></li>
-                              <li class="sub-nav-item"><a class="sub-nav-link" href="#!">Agent Details</a></li>
-                              <li class="sub-nav-item"><a class="sub-nav-link" href="#!">Add Agent</a></li>
+                              <li class="sub-nav-item"><a class="sub-nav-link" href="{{ route('agents.list') }}">List View</a></li>
+                              <li class="sub-nav-item"><a class="sub-nav-link" href="{{ route('agents.grid') }}">Grid View</a></li>
+                              <li class="sub-nav-item"><a class="sub-nav-link" href="{{ route('agents.details') }}">Agent Details</a></li>
+                              <li class="sub-nav-item"><a class="sub-nav-link" href="{{ route('agents.add') }}">Add Agent</a></li>
                          </ul>
                     </div>
                </li>

@@ -9,6 +9,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\AgentsController;
 
 
 
@@ -51,6 +52,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/property/list', [PropertyController::class, 'list'])->name('property.list');
     Route::get('/property/details', [PropertyController::class, 'details'])->name('property.details');
     Route::get('/property/add', [PropertyController::class, 'add'])->name('property.add');
+    
+    // ডাটাবেজে প্রোপার্টি সেভ করার জন্য এই POST রাউটটি যুক্ত করা হলো
+    Route::post('/property/store', [PropertyController::class, 'store'])->name('property.store');
+});
+
+// কাস্টমারদের প্রোপার্টি দেখার রাউট
+Route::get('/all-properties', [PropertyController::class, 'publicIndex'])->name('customer.properties.index');
+Route::get('/property-view/{id}', [PropertyController::class, 'publicDetails'])->name('customer.properties.details');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/agents/grid', [AgentsController::class, 'grid'])->name('agents.grid');
+    Route::get('/agents/list', [AgentsController::class, 'list'])->name('agents.list');
+    Route::get('/agents/details', [AgentsController::class, 'details'])->name('agents.details');
+    Route::get('/agents/add', [AgentsController::class, 'add'])->name('agents.add');
 });
 
 // কন্ট্রোলার ব্যবহার করে অর্ডার রাউট
