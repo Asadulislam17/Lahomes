@@ -6,7 +6,7 @@
         <div class="card auth-card">
             <div class="card-body px-3 py-5">
                 <div class="mx-auto mb-4 text-center auth-logo">
-                    <!-- ৩টি ব্র্যাকেট ঠিক করা হলো -->
+                   
                     <a href="{{ url('/') }}" class="logo-dark">
                         <img src="/images/logo-dark.png" height="32" alt="logo dark">
                     </a>
@@ -37,7 +37,7 @@
                                    placeholder="Enter your email" value="demo@user.com">
                         </div>
                         <div class="mb-3">
-                            <!-- পাসওয়ার্ড রিসেট লিংকটি Breeze এর ডিফল্ট রাউটে পরিবর্তন করা হলো -->
+                            
                             <a href="{{ route('password.request') }}"
                                class="float-end text-muted text-unline-dashed ms-1">Reset password</a>
                             <label class="form-label" for="example-password">Password</label>
@@ -71,7 +71,7 @@
             </div> <!-- end card-body -->
         </div> <!-- end card -->
 
-        <!-- সাইন আপ লিংকটি Breeze এর ডিফল্ট রাউটে পরিবর্তন করা হলো -->
+        
         <p class="mb-0 text-center text-white">New here? <a href="{{ route('register') }}"
             class="text-reset text-unline-dashed fw-bold ms-1">Sign Up</a>
     </p>

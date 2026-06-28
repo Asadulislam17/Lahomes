@@ -46,10 +46,10 @@
                     </a>
                     <div class="collapse" id="sidebarProperty">
                          <ul class="nav sub-navbar-nav">
-                              <li class="sub-nav-item"><a class="sub-nav-link" href="#!">Property Grid</a></li>
-                              <li class="sub-nav-item"><a class="sub-nav-link" href="#!">Property List</a></li>
-                              <li class="sub-nav-item"><a class="sub-nav-link" href="#!">Property Details</a></li>
-                              <li class="sub-nav-item"><a class="sub-nav-link" href="#!">Add Property</a></li>
+                              <li class="sub-nav-item"><a class="sub-nav-link" href="{{ route('property.grid') }}">Property Grid</a></li>
+                              <li class="sub-nav-item"><a class="sub-nav-link" href="{{ route('property.list') }}">Property List</a></li>
+                              <li class="sub-nav-item"><a class="sub-nav-link" href="{{ route('property.details') }}">Property Details</a></li>
+                              <li class="sub-nav-item"><a class="sub-nav-link" href="{{ route('property.add') }}">Add Property</a></li>
                          </ul>
                     </div>
                </li>
@@ -89,7 +89,7 @@
                @endif
                <!-- 🔗 অর্ডার মেনু (সব রোলই দেখতে পাবে) -->
                <li class="nav-item">
-                    <a class="nav-link" href="#!">
+                    <a class="nav-link" href="{{ route('orders.index') }}">
                          <span class="nav-icon"><i class="ri-home-office-line"></i></span>
                          <span class="nav-text">Orders</span>
                     </a>
@@ -97,7 +97,7 @@
 
                <!-- 🔗 ট্রানজেকশন (সব রোলই দেখতে পাবে) -->
                <li class="nav-item">
-                    <a class="nav-link" href="#!">
+                    <a class="nav-link" href="{{ route('transactions.index') }}">
                          <span class="nav-icon"><i class="ri-arrow-left-right-line"></i></span>
                          <span class="nav-text">Transactions</span>
                     </a>
@@ -129,13 +129,13 @@
 
                <!-- 🔗 কাস্টমার কমিউনিকেশন (সবাই পাবে) -->
                <li class="nav-item">
-                    <a class="nav-link" href="#!">
+                    <a class="nav-link" href="{{ route('messages.index') }}">
                          <span class="nav-icon"><i class="ri-discuss-line"></i></span>
                          <span class="nav-text">Messages</span>
                     </a>
                </li>
                <li class="nav-item">
-                    <a class="nav-link" href="#!">
+                    <a class="nav-link" href="{{ route('inbox.index') }}">
                          <span class="nav-icon"><i class="ri-inbox-line"></i></span>
                          <span class="nav-text">Inbox</span>
                     </a>
