@@ -55,11 +55,17 @@ Route::middleware(['auth'])->group(function () {
     
     // ডাটাবেজে প্রোপার্টি সেভ করার জন্য এই POST রাউটটি যুক্ত করা হলো
     Route::post('/property/store', [PropertyController::class, 'store'])->name('property.store');
+
+    // 👇 নতুন যোগ করা রাউট (বাটনগুলো সচল করার জন্য)
+    Route::get('/property/edit/{id}', [PropertyController::class, 'edit'])->name('property.edit');
+    Route::put('/property/update/{id}', [PropertyController::class, 'update'])->name('property.update');
+    Route::delete('/property/delete/{id}', [PropertyController::class, 'destroy'])->name('property.delete');
 });
 
 // কাস্টমারদের প্রোপার্টি দেখার রাউট
 Route::get('/all-properties', [PropertyController::class, 'publicIndex'])->name('customer.properties.index');
 Route::get('/property-view/{id}', [PropertyController::class, 'publicDetails'])->name('customer.properties.details');
+
 
 
 Route::middleware(['auth'])->group(function () {

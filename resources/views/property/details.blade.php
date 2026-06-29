@@ -86,7 +86,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-9 col-lg-8">
+    <!-- <div class="col-xl-9 col-lg-8">
         <div class="card">
             <div class="card-body">
                 <div class="position-relative">
@@ -193,7 +193,139 @@
             </div>
 
         </div>
+    </div> -->
+    <div class="col-xl-9 col-lg-8">
+    <div class="card">
+        <div class="card-body">
+            <!-- প্রোপার্টি ইমেজ ও স্ট্যাটাস -->
+            <div class="position-relative">
+                <img src="{{ $property->image ? asset($property->image) : asset('/images/properties/default.jpg') }}" alt="{{ $property->name }}" class="img-fluid rounded">
+                <span class="position-absolute top-0 start-0 p-2">
+                    @if(strtolower($property->property_for) == 'rent')
+                        <span class="badge bg-success text-light px-2 py-1 fs-13">For Rent</span>
+                    @else
+                        <span class="badge bg-warning text-light px-2 py-1 fs-13">For Sale</span>
+                    @endif
+                </span>
+            </div>
+
+            <!-- প্রোপার্টি নাম ও লোকেশন -->
+            <div class="d-flex flex-wrap justify-content-between my-3 gap-2">
+                <div>
+                    <h4 class="fs-18 text-dark fw-medium">{{ $property->name }}</h4>
+                    <p class="d-flex align-items-center gap-1 mt-1 mb-0">
+                        <iconify-icon icon="solar:map-point-wave-bold-duotone" class="fs-18 text-primary"></iconify-icon>
+                        {{ $property->address }}, {{ $property->city }}, {{ $property->country }}
+                    </p>
+                </div>
+                <div>
+                    <ul class="list-inline float-end d-flex gap-1 mb-0 align-items-center">
+                        <li class="list-inline-item fs-20 dropdown">
+                            <a href="javascript: void(0);" class="btn btn-light avatar-sm d-flex align-items-center justify-content-center text-dark fs-20" data-bs-toggle="modal" data-bs-target="#videocall">
+                                <iconify-icon icon="solar:share-bold-duotone"></iconify-icon>
+                            </a>
+                        </li>
+
+                        <li class="list-inline-item fs-20 dropdown">
+                            <a href="javascript: void(0);" class="btn btn-light avatar-sm d-flex align-items-center justify-content-center text-danger fs-20" data-bs-toggle="modal" data-bs-target="#voicecall">
+                                <iconify-icon icon="solar:heart-angle-bold-duotone"></iconify-icon>
+                            </a>
+                        </li>
+
+                        <li class="list-inline-item fs-20 dropdown">
+                            <a data-bs-toggle="offcanvas" href="#user-profile" class="btn btn-light avatar-sm d-flex align-items-center justify-content-center text-warning fs-20">
+                                <iconify-icon icon="solar:star-bold-duotone"></iconify-icon>
+                            </a>
+                        </li>
+
+                        <li class="list-inline-item fs-20 dropdown d-none d-md-flex">
+                            <a href="javascript: void(0);" class="dropdown-toggle arrow-none text-dark" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="ri-more-2-fill"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="javascript: void(0);"><i class="ri-user-6-line me-2"></i>View Profile</a>
+                                <a class="dropdown-item" href="javascript: void(0);"><i class="ri-music-2-line me-2"></i>Media, Links and Docs</a>
+                                <a class="dropdown-item" href="javascript: void(0);"><i class="ri-search-2-line me-2"></i>Search</a>
+                                <a class="dropdown-item" href="javascript: void(0);"><i class="ri-image-line me-2"></i>Wallpaper</a>
+                                <a class="dropdown-item" href="javascript: void(0);"><i class="ri-arrow-right-circle-line me-2"></i>More</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- প্রোপার্টি মূল্য -->
+            <div class="d-flex align-items-center gap-2">
+                <div class="avatar-sm bg-success-subtle rounded">
+                    <iconify-icon icon="solar:wallet-money-bold-duotone" class="fs-24 text-success avatar-title"></iconify-icon>
+                </div>
+                <p class="fw-medium text-dark fs-18 mb-0">${{ number_format($property->price, 2) }}</p>
+            </div>
+
+            <!-- ইনফরমেশন গ্রিড (বেডরুম, বাথরুম, সাইজ, ফ্লোর) -->
+            <div class="bg-light-subtle p-2 mt-3 rounded border border-dashed">
+                <div class="row align-items-center text-center g-2">
+                    <div class="col-xl-2 col-lg-3 col-md-6 col-6 border-end">
+                        <p class="text-muted mb-0 fs-15 fw-medium d-flex align-items-center justify-content-center gap-1">
+                            <iconify-icon icon="solar:bed-broken" class="fs-18 text-primary"></iconify-icon> {{ $property->bedroom ?? '0' }} Bedroom
+                        </p>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-6 col-6 border-end">
+                        <p class="text-muted mb-0 fs-15 fw-medium d-flex align-items-center justify-content-center gap-1">
+                            <iconify-icon icon="solar:bath-broken" class="fs-18 text-primary"></iconify-icon> {{ $property->bathroom ?? '0' }} Bathrooms
+                        </p>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-6 col-6 border-end">
+                        <p class="text-muted mb-0 fs-15 fw-medium d-flex align-items-center justify-content-center gap-1">
+                            <iconify-icon icon="solar:scale-broken" class="fs-18 text-primary"></iconify-icon> {{ $property->sqft ?? '0' }}sqft
+                        </p>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-6 col-6 border-end">
+                        <p class="text-muted mb-0 fs-15 fw-medium d-flex align-items-center justify-content-center gap-1">
+                            <iconify-icon icon="solar:double-alt-arrow-up-broken" class="fs-18 text-primary"></iconify-icon> {{ $property->floor ?? '0' }} Floor
+                        </p>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-6 col-6 border-end">
+                        <p class="text-muted mb-0 fs-15 fw-medium d-flex align-items-center justify-content-center gap-1">
+                            <span class="badge p-1 bg-light fs-12 text-dark"><i class="ri-star-fill align-text-top fs-14 text-warning me-1"></i> 4.4</span> Review
+                        </p>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-6 col-6">
+                        <p class="text-muted mb-0 fs-15 fw-medium d-flex align-items-center justify-content-center gap-1">
+                            <iconify-icon icon="solar:check-circle-broken" class="fs-18 text-primary"></iconify-icon> For {{ $property->property_for }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ফ্যাসিলিটি এবং ক্যাটাগরি -->
+            <h5 class="text-dark fw-medium mt-3">Some Facility & Category :</h5>
+            <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
+                <span class="badge bg-light-subtle text-muted border fw-medium fs-13 px-2 py-1">{{ $property->category }}</span>
+                <span class="badge bg-light-subtle text-muted border fw-medium fs-13 px-2 py-1">Big Swimming pool </span>
+                <span class="badge bg-light-subtle text-muted border fw-medium fs-13 px-2 py-1">Near Airport </span>
+                <span class="badge bg-light-subtle text-muted border fw-medium fs-13 px-2 py-1">Big Size Garden </span>
+            </div>
+
+            <!-- প্রোপার্টি ডেসক্রিপশন ও ডিটেইলস -->
+            <h5 class="text-dark fw-medium mt-3">Property Details :</h5>
+            <p class="mt-2">
+                This property is located at <strong>{{ $property->address }}, {{ $property->city }}, {{ $property->country }}</strong>. 
+                @if($property->zip_code) Postal code is {{ $property->zip_code }}. @endif
+                Property refers to any item that an individual or a business holds legal title to. This can include tangible items, such as houses, cars, or appliances, as well as intangible items that hold potential future value, such as stock and bond certificates. Legally, property is classified into two categories: personal property and real property.
+            </p>
+
+            <!-- এখানে আপনার ঝুলে থাকা অংশটি সম্পূর্ণ করে 'Back to List' বাটন দেওয়া হলো -->
+            <div class="d-flex align-items-center justify-content-between mt-4">
+                <a href="{{ route('property.list') }}" class="btn btn-primary btn-sm">
+                    <i class="ri-arrow-left-line me-1 align-middle"></i> Back to List
+                </a>
+            </div>
+
+        </div>
     </div>
+</div>
+
 </div>
 <div class="row">
     <div class="col-lg-12">

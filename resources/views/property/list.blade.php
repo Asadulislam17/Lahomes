@@ -116,11 +116,8 @@
                         This Month
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
                         <a href="#!" class="dropdown-item">Download</a>
-                        <!-- item-->
                         <a href="#!" class="dropdown-item">Export</a>
-                        <!-- item-->
                         <a href="#!" class="dropdown-item">Import</a>
                     </div>
                 </div>
@@ -146,377 +143,81 @@
                         </tr>
                     </thead>
                     <tbody>
-
+                        
+                        @forelse($properties as $property)
                         <tr>
                             <td>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="customCheck2">
-                                    <label class="form-check-label" for="customCheck2">&nbsp;</label>
+                                    <input type="checkbox" class="form-check-input" id="customCheck{{ $property->id }}">
+                                    <label class="form-check-label" for="customCheck{{ $property->id }}">&nbsp;</label>
                                 </div>
                             </td>
                             <td>
                                 <div class="d-flex align-items-center gap-2">
                                     <div>
-                                        <img src="/images/properties/p-1.jpg" alt="" class="avatar-md rounded border border-light border-3">
+                                        <img src="{{ $property->image ? asset($property->image) : asset('/images/properties/default.jpg') }}" alt="" class="avatar-md rounded border border-light border-3">
                                     </div>
                                     <div>
-                                        <a href="#!" class="text-dark fw-medium fs-15">Dvilla Residences Batu</a>
+                                        <a href="#!" class="text-dark fw-medium fs-15">{{ $property->name }}</a>
                                     </div>
                                 </div>
-
                             </td>
-                            <td>1400ft</td>
-                            <td>Residences</td>
-                            <td> <span class="badge bg-success-subtle text-success py-1 px-2 fs-13">Rent</span></td>
+                            <td>{{ $property->sqft ?? '0' }} sqft</td>
+                            <td>{{ $property->category }}</td>
+                            <td> 
+                                @if(strtolower($property->property_for) == 'rent')
+                                    <span class="badge bg-success-subtle text-success py-1 px-2 fs-13">Rent</span>
+                                @else
+                                    <span class="badge bg-danger-subtle text-danger py-1 px-2 fs-13">Sale</span>
+                                @endif
+                            </td>
                             <td>
-                                <p class="mb-0"><iconify-icon icon="solar:bed-broken" class="align-middle fs-16"></iconify-icon> 5</p>
+                                <p class="mb-0"><iconify-icon icon="solar:bed-broken" class="align-middle fs-16"></iconify-icon> {{ $property->bedroom ?? '0' }}</p>
                             </td>
-                            <td>France</td>
-                            <td>$8,930.00</td>
+                            <td>{{ $property->country }}</td>
+                            <td>${{ number_format($property->price, 2) }}</td>
                             <td>
                                 <div class="d-flex gap-2">
-                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
+                                    <!-- ১. ভিউ বাটন (ডিটেইলস পেজে নিয়ে যাবে) -->
+                                    <a href="{{ route('customer.properties.details', $property->id) }}" class="btn btn-light btn-sm" title="View">
+                                        <iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon>
+                                    </a>
+                                    
+                                    <!-- ২. এডিট বাটন (এডিট পেজে নিয়ে যাবে) -->
+                                    <a href="{{ route('property.edit', $property->id) }}" class="btn btn-soft-primary btn-sm" title="Edit">
+                                        <iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon>
+                                    </a>
+                                    
+                                    <!-- ৩. ডিলিট বাটন (নিরাপদ ফর্ম সাবমিশন) -->
+                                    <form action="{{ route('property.delete', $property->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this property?');" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-soft-danger btn-sm" title="Delete">
+                                            <iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon>
+                                        </button>
+                                    </form>
                                 </div>
+
                             </td>
                         </tr>
-
+                        @empty
                         <tr>
-                            <td>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="customCheck2">
-                                    <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div>
-                                        <img src="/images/properties/p-2.jpg" alt="" class="avatar-md rounded border border-light border-3">
-                                    </div>
-                                    <div>
-                                        <a href="#!" class="text-dark fw-medium fs-15">PIK Villa House</a>
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td>1700ft</td>
-                            <td>Villas</td>
-                            <td> <span class="badge bg-danger-subtle text-danger py-1 px-2 fs-13">Sold</span></td>
-                            <td>
-                                <p class="mb-0"><iconify-icon icon="solar:bed-broken" class="align-middle fs-16"></iconify-icon> 6</p>
-                            </td>
-                            <td>Bermuda</td>
-                            <td>$60,691.00</td>
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                </div>
-                            </td>
+                            <td colspan="9" class="text-center text-muted py-4">No properties found.</td>
                         </tr>
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="customCheck2">
-                                    <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div>
-                                        <img src="/images/properties/p-3.jpg" alt="" class="avatar-md rounded border border-light border-3">
-                                    </div>
-                                    <div>
-                                        <a href="#!" class="text-dark fw-medium fs-15">Tungis Luxury</a>
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td>1200ft</td>
-                            <td>Bungalow</td>
-                            <td> <span class="badge bg-warning-subtle text-warning py-1 px-2 fs-13">Sale</span></td>
-                            <td>
-                                <p class="mb-0"><iconify-icon icon="solar:bed-broken" class="align-middle fs-16"></iconify-icon> 4</p>
-                            </td>
-                            <td>Australia</td>
-                            <td>$70,245.00 </td>
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="customCheck2">
-                                    <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div>
-                                        <img src="/images/properties/p-4.jpg" alt="" class="avatar-md rounded border border-light border-3">
-                                    </div>
-                                    <div>
-                                        <a href="#!" class="text-dark fw-medium fs-15">Luxury Apartment</a>
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td>900ft</td>
-                            <td>Apartment</td>
-                            <td> <span class="badge bg-success-subtle text-success py-1 px-2 fs-13">Rent</span></td>
-                            <td>
-                                <p class="mb-0"><iconify-icon icon="solar:bed-broken" class="align-middle fs-16"></iconify-icon> 2</p>
-                            </td>
-                            <td>France</td>
-                            <td>$5,825.00 </td>
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                </div>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="customCheck2">
-                                    <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div>
-                                        <img src="/images/properties/p-5.jpg" alt="" class="avatar-md rounded border border-light border-3">
-                                    </div>
-                                    <div>
-                                        <a href="#!" class="text-dark fw-medium fs-15">Weekend Villa MBH</a>
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td>1900ft</td>
-                            <td>Villas</td>
-                            <td> <span class="badge bg-warning-subtle text-warning py-1 px-2 fs-13">Sale</span></td>
-                            <td>
-                                <p class="mb-0"><iconify-icon icon="solar:bed-broken" class="align-middle fs-16"></iconify-icon> 5</p>
-                            </td>
-                            <td>U.S.A</td>
-                            <td>$90,674.00 </td>
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                </div>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="customCheck2">
-                                    <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div>
-                                        <img src="/images/properties/p-6.jpg" alt="" class="avatar-md rounded border border-light border-3">
-                                    </div>
-                                    <div>
-                                        <a href="#!" class="text-dark fw-medium fs-15">Luxury Penthouse</a>
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td>2000ft</td>
-                            <td>Penthouse</td>
-                            <td> <span class="badge bg-success-subtle text-success py-1 px-2 fs-13">Rent</span></td>
-                            <td>
-                                <p class="mb-0"><iconify-icon icon="solar:bed-broken" class="align-middle fs-16"></iconify-icon> 7</p>
-                            </td>
-                            <td>Greenland</td>
-                            <td>$10,500.00</td>
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                </div>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="customCheck2">
-                                    <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div>
-                                        <img src="/images/properties/p-7.jpg" alt="" class="avatar-md rounded border border-light border-3">
-                                    </div>
-                                    <div>
-                                        <a href="#!" class="text-dark fw-medium fs-15">Ojiag Duplex Apartment</a>
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td>1300ft</td>
-                            <td>Apartment</td>
-                            <td> <span class="badge bg-danger-subtle text-danger py-1 px-2 fs-13">Sold</span></td>
-                            <td>
-                                <p class="mb-0"><iconify-icon icon="solar:bed-broken" class="align-middle fs-16"></iconify-icon> 3</p>
-                            </td>
-                            <td>France</td>
-                            <td>$75,341.00</td>
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="customCheck2">
-                                    <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div>
-                                        <img src="/images/properties/p-8.jpg" alt="" class="avatar-md rounded border border-light border-3">
-                                    </div>
-                                    <div>
-                                        <a href="#!" class="text-dark fw-medium fs-15">Luxury Bungalow Villas</a>
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td>1200ft</td>
-                            <td>Bungalow</td>
-                            <td> <span class="badge bg-warning-subtle text-warning py-1 px-2 fs-13">Sale</span></td>
-                            <td>
-                                <p class="mb-0"><iconify-icon icon="solar:bed-broken" class="align-middle fs-16"></iconify-icon> 4</p>
-                            </td>
-                            <td>France</td>
-                            <td>$54,230.00</td>
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="customCheck2">
-                                    <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div>
-                                        <img src="/images/properties/p-9.jpg" alt="" class="avatar-md rounded border border-light border-3">
-                                    </div>
-                                    <div>
-                                        <a href="#!" class="text-dark fw-medium fs-15">Duplex Bungalow</a>
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td>1800ft</td>
-                            <td>Residences</td>
-                            <td> <span class="badge bg-success-subtle text-success py-1 px-2 fs-13">Rent</span></td>
-                            <td>
-                                <p class="mb-0"><iconify-icon icon="solar:bed-broken" class="align-middle fs-16"></iconify-icon> 3</p>
-                            </td>
-                            <td>Canada</td>
-                            <td>$14,564.00</td>
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="customCheck2">
-                                    <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div>
-                                        <img src="/images/properties/p-10.jpg" alt="" class="avatar-md rounded border border-light border-3">
-                                    </div>
-                                    <div>
-                                        <a href="#!" class="text-dark fw-medium fs-15">Woodis B. Apartment</a>
-                                    </div>
-                                </div>
-
-                            </td>
-                            <td>1700ft</td>
-                            <td>Apartment</td>
-                            <td> <span class="badge bg-danger-subtle text-danger py-1 px-2 fs-13">Sold</span></td>
-                            <td>
-                                <p class="mb-0"><iconify-icon icon="solar:bed-broken" class="align-middle fs-16"></iconify-icon> 5</p>
-                            </td>
-                            <td>U.S.A</td>
-                            <td>$34,341.00 </td>
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                </div>
-                            </td>
-                        </tr>
-
+                        @endforelse
                     </tbody>
                 </table>
             </div>
             <!-- end table-responsive -->
+            
+            {{-- পেজিনেশন লিংক --}}
             <div class="card-footer">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-end mb-0">
-                        <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-                        <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                        <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                        <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                        <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-                    </ul>
-                </nav>
+                <div class="d-flex justify-content-end">
+                    {{ $properties->links('pagination::bootstrap-5') }}
+                </div>
             </div>
         </div>
     </div>
-
 </div>
 
 @endsection
