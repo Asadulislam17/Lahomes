@@ -24,4 +24,10 @@ class Property extends Model
         'country', 
         'image'
     ];
+
+    // এই প্রপার্টির জন্য যত অর্ডার হয়েছে
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

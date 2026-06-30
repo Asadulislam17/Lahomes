@@ -146,12 +146,16 @@
                     <div class="dropdown topbar-item">
                          <a type="button" class="topbar-button" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <span class="d-flex align-items-center">
-                                   <img class="rounded-circle" width="32" src="/images/users/avatar-1.jpg" alt="avatar-3">
+                                   <img class="rounded-circle" width="32" src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : '/images/users/avatar-1.jpg' }}" alt="avatar">
                               </span>
                          </a>
                          <div class="dropdown-menu dropdown-menu-end">
                               <!-- ইউজারের নাম ডাইনামিক করা হলো -->
                               <h6 class="dropdown-header">Welcome {{ auth()->user()->name }}!</h6>
+
+                              <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                   <iconify-icon icon="solar:user-circle-broken" class="align-middle me-2 fs-18"></iconify-icon><span class="align-middle">My Profile</span>
+                              </a>
 
                               <!-- ওল্ড রাউট পরিবর্তন করে সাময়িকভাবে হ্যাস (#!) করা হলো -->
                               <a class="dropdown-item" href="#!">

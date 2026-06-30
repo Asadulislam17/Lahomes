@@ -35,21 +35,20 @@
             <div class="card-body">
                 <div class="d-flex flex-wrap align-items-center gap-3">
                     <div class="position-relative">
-                        <img src="/images/users/avatar-2.jpg" alt="avatar-2" class="avatar-xl user-img img-thumbnail rounded-circle">
-                        <div class="badge bg-success rounded-2 position-absolute bottom-0 start-50 translate-middle-x mb-n1 fs-11"># 1</div>
+                        <img src="{{ $agent->photo ? asset($agent->photo) : '/images/users/avatar-2.jpg' }}" alt="avatar" class="avatar-xl user-img img-thumbnail rounded-circle">
+                        <div class="badge bg-success rounded-2 position-absolute bottom-0 start-50 translate-middle-x mb-n1 fs-11"># {{ $agent->id }}</div>
                     </div>
                     <div class="d-block">
-                        <a href="#!" class="text-dark fw-medium fs-16">Michael A. Miner</a>
-                        <p class="mb-0">michaelminer@dayrep.com</p>
+                        <a href="#!" class="text-dark fw-medium fs-16">{{ $agent->name }}</a>
+                        <p class="mb-0">{{ $agent->email }}</p>
                     </div>
                     <div class="ms-lg-auto">
-                        <a href="#!" class="btn btn-primary">Message</a>
-                        <a href="#!" class="btn btn-outline-secondary">Work With Michael</a>
+                        <a href="{{ route('messages.index') }}" class="btn btn-primary">Message</a>
                     </div>
                 </div>
                 <div class="mt-3">
-                    <p class="d-flex align-items-center gap-2"><iconify-icon icon="solar:map-point-wave-bold-duotone" class="fs-18 text-primary"></iconify-icon>Lincoln Drive Harrisburg, PA 17101 U.S.A</p>
-                    <p class="d-flex align-items-center gap-2"><iconify-icon icon="solar:outgoing-call-rounded-bold-duotone" class="fs-18 text-primary"></iconify-icon>+123 864-357-7713</p>
+                    <p class="d-flex align-items-center gap-2"><iconify-icon icon="solar:map-point-wave-bold-duotone" class="fs-18 text-primary"></iconify-icon>{{ $agent->address ?? 'N/A' }}</p>
+                    <p class="d-flex align-items-center gap-2"><iconify-icon icon="solar:outgoing-call-rounded-bold-duotone" class="fs-18 text-primary"></iconify-icon>{{ $agent->phone ?? 'N/A' }}</p>
 
                     <h4 class="card-title mb-2 mt-3">Social Media :</h4>
                     <ul class="list-inline d-flex gap-1 mb-0 mt-3 align-items-center">

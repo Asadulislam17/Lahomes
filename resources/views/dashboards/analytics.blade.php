@@ -12,8 +12,7 @@
                                               class="fs-32 text-primary avatar-title"></iconify-icon>
                             </div>
                             <p class="text-muted mb-2 mt-3">No. of Properties</p>
-                            <h3 class="text-dark fw-bold d-flex align-items-center gap-2 mb-0">2,854 <span
-                                    class="badge text-success bg-success-subtle fs-12"><i class="ri-arrow-up-line"></i>7.34%</span>
+                            <h3 class="text-dark fw-bold d-flex align-items-center gap-2 mb-0">{{ number_format($totalProperties) }}
                             </h3>
                         </div> <!-- end col -->
                         <div class="col-6">
@@ -33,8 +32,7 @@
                                               class="fs-32 text-primary avatar-title"></iconify-icon>
                             </div>
                             <p class="text-muted mb-2 mt-3">Regi. Agents</p>
-                            <h3 class="text-dark fw-bold d-flex align-items-center gap-2 mb-0">705 <span
-                                    class="badge text-success bg-success-subtle fs-12"><i class="ri-arrow-up-line"></i>76.89%</span>
+                            <h3 class="text-dark fw-bold d-flex align-items-center gap-2 mb-0">{{ number_format($totalAgents) }}
                             </h3>
                         </div> <!-- end col -->
                         <div class="col-6 text-end">
@@ -54,8 +52,7 @@
                                               class="fs-32 text-primary avatar-title"></iconify-icon>
                             </div>
                             <p class="text-muted mb-2 mt-3">Customers</p>
-                            <h3 class="text-dark fw-bold d-flex align-items-center gap-2 mb-0">9,431 <span
-                                    class="badge text-danger bg-danger-subtle fs-12"><i class="ri-arrow-down-line"></i>45.00%</span>
+                            <h3 class="text-dark fw-bold d-flex align-items-center gap-2 mb-0">{{ number_format($totalCustomers) }}
                             </h3>
                         </div> <!-- end col -->
                         <div class="col-6 text-end">
@@ -75,8 +72,7 @@
                                               class="fs-32 text-primary avatar-title"></iconify-icon>
                             </div>
                             <p class="text-muted mb-2 mt-3">Revenue</p>
-                            <h3 class="text-dark fw-bold d-flex align-items-center gap-2 mb-0">$78.3M <span
-                                    class="badge text-success bg-success-subtle fs-12"><i class="ri-arrow-up-line"></i>8.76%</span>
+                            <h3 class="text-dark fw-bold d-flex align-items-center gap-2 mb-0">${{ number_format($totalRevenue) }}
                             </h3>
                         </div> <!-- end col -->
                         <div class="col-6 text-end">

@@ -45,13 +45,12 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
 
+                            @forelse ($orders as $order)
                             <tr>
                                 <td>
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="customCheck2">
-                                        <label class="form-check-label" for="customCheck2">&nbsp;</label>
+                                        <input type="checkbox" class="form-check-input">
                                     </div>
                                 </td>
                                 <td>
@@ -60,291 +59,41 @@
                                             <img src="/images/users/avatar-2.jpg" alt="" class="avatar-sm rounded-circle">
                                         </div>
                                         <div>
-                                            <a href="#!" class="text-dark fw-medium fs-15">Daavid Nummi</a>
+                                            <a href="#!" class="text-dark fw-medium fs-15">{{ $order->customer->name ?? 'N/A' }}</a>
                                         </div>
                                     </div>
-
                                 </td>
-                                <td>02/01/2023</td>
-                                <td>+231 06-75820711</td>
-                                <td>Residential</td>
-                                <td>$2,890,123</td>
-                                <td>123 Maple St, 456 Oak Ave</td>
-                                <td><span class="badge bg-success text-white fs-11">Paid</span></td>
+                                <td>{{ $order->created_at->format('d/m/Y') }}</td>
+                                <td>{{ $order->contact ?? '-' }}</td>
+                                <td>{{ $order->property->category ?? 'N/A' }}</td>
+                                <td>${{ number_format($order->amount) }}</td>
+                                <td>{{ $order->property->name ?? 'N/A' }}</td>
+                                <td>
+                                    @if($order->status == 'paid')
+                                        <span class="badge bg-success text-white fs-11">Paid</span>
+                                    @elseif($order->status == 'cancelled')
+                                        <span class="badge bg-danger text-white fs-11">Cancelled</span>
+                                    @else
+                                        <span class="badge bg-warning text-white fs-11">Pending</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="d-flex gap-2">
-                                        <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
+                                        <form action="{{ route('orders.delete', $order->id) }}" method="POST" onsubmit="return confirm('Delete this order?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-soft-danger btn-sm">
+                                                <iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon>
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
-
+                            @empty
                             <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="customCheck2">
-                                        <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div>
-                                            <img src="/images/users/avatar-3.jpg" alt="" class="avatar-sm rounded-circle">
-                                        </div>
-                                        <div>
-                                            <a href="#!" class="text-dark fw-medium fs-15">Sinikka Penttinen</a>
-                                        </div>
-                                    </div>
-
-                                </td>
-                                <td>10/02/2023</td>
-                                <td>+231 47-23456789</td>
-                                <td>Commercial</td>
-                                <td>$2,678,901</td>
-                                <td>789 Pine Blvd</td>
-                                <td><span class="badge bg-success text-white fs-11">Paid</span></td>
-                                <td>
-                                    <div class="d-flex gap-2">
-                                        <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    </div>
-                                </td>
+                                <td colspan="9" class="text-center py-4">No orders found.</td>
                             </tr>
-
-
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="customCheck2">
-                                        <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div>
-                                            <img src="/images/users/avatar-4.jpg" alt="" class="avatar-sm rounded-circle">
-                                        </div>
-                                        <div>
-                                            <a href="#!" class="text-dark fw-medium fs-15">Jere Palmu</a>
-                                        </div>
-                                    </div>
-
-                                </td>
-                                <td>18/03/2023</td>
-                                <td>+231 73-34567890</td>
-                                <td>Residential</td>
-                                <td>$4,123,456 </td>
-                                <td>101 Birch Ct, 202 Cedar Ln</td>
-                                <td><span class="badge bg-danger text-white fs-11">Unpaid</span></td>
-                                <td>
-                                    <div class="d-flex gap-2">
-                                        <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="customCheck2">
-                                        <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div>
-                                            <img src="/images/users/avatar-5.jpg" alt="" class="avatar-sm rounded-circle">
-                                        </div>
-                                        <div>
-                                            <a href="#!" class="text-dark fw-medium fs-15">Ulla Nuorela</a>
-                                        </div>
-                                    </div>
-
-                                </td>
-                                <td>25/04/2023</td>
-                                <td>+231 45-45678901</td>
-                                <td>Residential</td>
-                                <td>$3,456,789</td>
-                                <td>303 Elm St</td>
-                                <td><span class="badge bg-success text-white fs-11">Paid</span></td>
-                                <td>
-                                    <div class="d-flex gap-2">
-                                        <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    </div>
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="customCheck2">
-                                        <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div>
-                                            <img src="/images/users/avatar-6.jpg" alt="" class="avatar-sm rounded-circle">
-                                        </div>
-                                        <div>
-                                            <a href="#!" class="text-dark fw-medium fs-15">Tiia Karppinen</a>
-                                        </div>
-                                    </div>
-
-                                </td>
-                                <td>12/04/2023</td>
-                                <td>+231 16-56789012</td>
-                                <td>Industrial</td>
-                                <td>$2,789,012 </td>
-                                <td>404 Walnut Rd</td>
-                                <td><span class="badge bg-danger text-white fs-11">Unpaid</span></td>
-                                <td>
-                                    <div class="d-flex gap-2">
-                                        <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="customCheck2">
-                                        <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div>
-                                            <img src="/images/users/avatar-7.jpg" alt="" class="avatar-sm rounded-circle">
-                                        </div>
-                                        <div>
-                                            <a href="#!" class="text-dark fw-medium fs-15">Harland R. Orsini</a>
-                                        </div>
-                                    </div>
-
-                                </td>
-                                <td>01/05/2023</td>
-                                <td>+231 82-67890123</td>
-                                <td>Residential</td>
-                                <td>$2,456,789</td>
-                                <td>505 Spruce St</td>
-                                <td><span class="badge bg-danger text-white fs-11">Unpaid</span></td>
-                                <td>
-                                    <div class="d-flex gap-2">
-                                        <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    </div>
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="customCheck2">
-                                        <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div>
-                                            <img src="/images/users/avatar-8.jpg" alt="" class="avatar-sm rounded-circle">
-                                        </div>
-                                        <div>
-                                            <a href="#!" class="text-dark fw-medium fs-15">David Padgett</a>
-                                        </div>
-                                    </div>
-
-                                </td>
-                                <td>15/06/2023</td>
-                                <td>+231 92-78901234</td>
-                                <td>Commercial</td>
-                                <td>$1,567,890</td>
-                                <td>606 Fir Ave</td>
-                                <td><span class="badge bg-success text-white fs-11">Paid</span></td>
-                                <td>
-                                    <div class="d-flex gap-2">
-                                        <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="customCheck2">
-                                        <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div>
-                                            <img src="/images/users/avatar-9.jpg" alt="" class="avatar-sm rounded-circle">
-                                        </div>
-                                        <div>
-                                            <a href="#!" class="text-dark fw-medium fs-15">Valerie Obrien</a>
-                                        </div>
-                                    </div>
-
-                                </td>
-                                <td>22/07/2023</td>
-                                <td>+231 82-89012345</td>
-                                <td>Residential</td>
-                                <td>$1,234,567</td>
-                                <td>808 Willow Dr, 909 Aspen Ln</td>
-                                <td><span class="badge bg-warning text-white fs-11">Pending</span></td>
-                                <td>
-                                    <div class="d-flex gap-2">
-                                        <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="customCheck2">
-                                        <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div>
-                                            <img src="/images/users/avatar-10.jpg" alt="" class="avatar-sm rounded-circle">
-                                        </div>
-                                        <div>
-                                            <a href="#!" class="text-dark fw-medium fs-15">Adriana G. Faust</a>
-                                        </div>
-                                    </div>
-
-                                </td>
-                                <td>29/10/2023</td>
-                                <td>+231 54-4775764</td>
-                                <td>Apartment</td>
-                                <td>$1,502,331</td>
-                                <td>1190 Barlow Street Mokopane</td>
-                                <td><span class="badge bg-warning text-white fs-11">Pending</span></td>
-                                <td>
-                                    <div class="d-flex gap-2">
-                                        <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                        <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                    </div>
-                                </td>
-                            </tr>
+                            @endforelse
 
                         </tbody>
                     </table>
@@ -352,15 +101,7 @@
             </div>
 
             <div class="card-footer border-top">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-end mb-0">
-                        <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-                        <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                        <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                        <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                        <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-                    </ul>
-                </nav>
+                {{ $orders->links() }}
             </div>
         </div>
     </div>
